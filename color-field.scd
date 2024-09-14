@@ -19,6 +19,7 @@ Task({
 		yPix = Array.fill(n.size,{arg i; [0,0,m[i].height-1,m[i].height-1,0,0,m[i].height-1,m[i].height-1]});
 		bf = Buffer.alloc(Server.default,4096,2);
 		fb = Bus.audio(Server.default,2);
+		y = rrand(0,n.size-1);
 		w=Array.fill(n.size,
 			{
 				arg j;
@@ -49,8 +50,8 @@ Task({
 		.yZoom_(1)
 		.waveColors_(
 			[
-				m[rrand(0,n.size-1)].getColor(rrand(1,m[0].width-1),rrand(1,m[0].height-1)),
-				m[rrand(0,n.size-1)].getColor(rrand(1,m[0].width-1),rrand(1,m[0].height-1))
+				m[y].getColor(rrand(1,m[y].width-1),rrand(1,m[y].height-1)),
+				m[y].getColor(rrand(1,m[y].width-1),rrand(1,m[y].height-1))
 			]
 		)
 		.background_(Color.clear)
