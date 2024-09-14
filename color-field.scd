@@ -20,6 +20,7 @@ Task({
 		bf = Buffer.alloc(Server.default,4096,2);
 		fb = Bus.audio(Server.default,2);
 		y = rrand(0,n.size-1);
+		"scanning pixels...".postln;
 		w=Array.fill(n.size,
 			{
 				arg j;
