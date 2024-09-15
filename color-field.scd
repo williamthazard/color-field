@@ -43,7 +43,7 @@ Task({
 				)
 			}
 		);
-		x = Window("lissajous",Rect(0,0,m[0].width,m[0].height/2),border:false)
+		x = Window("lissajous",u.bounds+[0,100,0,0],border:false)
 		.background_(Color.clear)
 		.visible_(true)
 		.onClose_({topScope.stop; bf.free; fb.free});
