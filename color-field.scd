@@ -6,12 +6,23 @@ Task({
 		var xPix,yPix,bf,fb,af,topScope;
 		n = PathName.new(thisProcess.nowExecutingPath.dirname++"/images/awood/").entries.asArray;
 		m = Array.fill(n.size,{arg i; Image.open(n[i].fullPath)});
+		z = Array.fill(n.size,{arg i; m[i].height}).sort.reverse;
+		y = Array.fill(n.size,{arg i; m[i].width}).sum;
 		s.sync;
 		t = 8;
+		p = rrand(0,n.size-1);
 		Window.closeAll;
-		h = Array.fill(m.size,
+		u = Window("color field",Rect(0,0,(y/4)+10,z[0]/4),border:false)
+		.visible_(true)
+		.background_(Color.clear)
+		.drawFunc_(
 			{
-				arg i; m[i].plot(name:n[i].fileNameWithoutExtension,bounds:Rect((i*377),0,m[i].width/4,m[i].height/4),showInfo:false,freeOnClose:true)
+				n.size.do(
+					{
+						arg i;
+						m[i].drawInRect(Rect((i*377),u.bounds.height-(m[i].height/4),m[i].width/4,m[i].height/4),Rect(m[i].bounds))
+					}
+				)
 			}
 		);
 		s.sync;
@@ -19,7 +30,6 @@ Task({
 		yPix = Array.fill(n.size,{arg i; [0,0,m[i].height-1,m[i].height-1,0,0,m[i].height-1,m[i].height-1]});
 		bf = Buffer.alloc(Server.default,4096,2);
 		fb = Bus.audio(Server.default,2);
-		y = rrand(0,n.size-1);
 		"scanning pixels...".postln;
 		w=Array.fill(n.size,
 			{
@@ -28,7 +38,7 @@ Task({
 					{
 						arg i;
 						var poss = [0,0,1,1,2,2,3,3];
-						Window("trajectory",Rect(5+(poss[i]*80)+(j*377),((i%2)*80)+5,75,75),border:false).visible_(true).alpha_(0.75);
+						View(u,Rect(5+(poss[i]*80)+(j*377),u.bounds.height-((i%2)*80)-80,75,75)).visible_(true).alpha_(0.25);
 					}
 				)
 			}
@@ -51,8 +61,8 @@ Task({
 		.yZoom_(1)
 		.waveColors_(
 			[
-				m[y].getColor(rrand(1,m[y].width-1),rrand(1,m[y].height-1)),
-				m[y].getColor(rrand(1,m[y].width-1),rrand(1,m[y].height-1))
+				m[p].getColor(rrand(1,m[p].width-1),rrand(1,m[p].height-1)),
+				m[p].getColor(rrand(1,m[p].width-1),rrand(1,m[p].height-1))
 			]
 		)
 		.background_(Color.clear)
@@ -172,8 +182,8 @@ Task({
 									);
 									color = m[j].getColor(xPix[j][i],yPix[j][i]);
 									m[j].setColor(Color.new(color.red,color.green,color.blue,m[j].getColor(xPix[j][i],yPix[j][i]).alpha-0.1),xPix[j][i],yPix[j][i]);
-									h[j].refresh;
-									w[j][i].background_(color);
+									w[j][i].background_(color).alpha_(0.25);
+									u.refresh;
 									if(
 										j == 0,
 										{
