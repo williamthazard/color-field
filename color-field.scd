@@ -4,7 +4,7 @@ Task({
 	s.reboot;
 	s.waitForBoot({
 		var xPix,yPix,bf,fb,af,topScope;
-		n = PathName.new(thisProcess.nowExecutingPath.dirname++"/images/awood/").entries.asArray;
+		n = PathName.new(thisProcess.nowExecutingPath.dirname++"/images/").entries.asArray;
 		m = Array.fill(n.size,{arg i; Image.open(n[i].fullPath)});
 		z = Array.fill(n.size,{arg i; m[i].height}).sort.reverse;
 		y = Array.fill(n.size,{arg i; m[i].width}).sum;
