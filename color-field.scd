@@ -1,6 +1,6 @@
 Task({
 	o = Server.default.options;
-	o.outDevice_("External Headphones");
+	o.outDevice_("Scarlett 4i4 USB");
 	s.reboot;
 	s.waitForBoot({
 		var xPix,yPix,bf,fb,af,topScope;
